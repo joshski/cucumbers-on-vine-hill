@@ -1,10 +1,8 @@
+var express = require('express')
 var hyperdom = require('hyperdom')
 var httpism = require('httpism/browser')
 var vinehill = new (require('vinehill'))()
 var browserMonkey = require('browser-monkey')
-
-var assert = require('assert')
-var express = require('express')
 
 function weatherApp(model) {
   function forecast() {
