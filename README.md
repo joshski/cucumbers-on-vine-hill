@@ -6,4 +6,4 @@
 * [browser-monkey](https://github.com/featurist/browser-monkey) interacts with the web page
 * [hyperdom](https://github.com/featurist/hyperdom) renders the HTML
 * [express](https://github.com/expressjs/express) powers the HTTP API
-* [vinehill](https://github.com/derke/vinehill) cuts out the HTTP
+* [vinehill](https://github.com/dereke/vinehill) cuts out the HTTP
