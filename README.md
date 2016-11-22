@@ -11,6 +11,43 @@
 
 Check out the [client](app/client.js), [server](app/server.js), and [step definitions](features/step_definitions/weather_report_steps.js)
 
+#### Features
+
+```gherkin
+Feature: Weather Report
+
+  Scenario: The weather in my city
+    When I ask about the weather in London
+    Then it should be rainy again
+```
+
+#### Step Definitions
+
+```js
+const hyperdom = require('hyperdom')
+const vinehill = new (require('vinehill'))()
+const browserMonkey = require('browser-monkey')
+const client = require('../../app/client')
+const server = require('../../app/server')
+
+module.exports = function() {
+  this.Before(function() {
+    vinehill.add('http://weather.com', server)
+    vinehill.start()
+    hyperdom.append(document.body, client, {})
+    this.browser = browserMonkey.component('body')
+  })
+
+  this.When(/^I ask about the weather in London$/, function () {
+    return this.browser.find('.london').click()
+  })
+
+  this.Then(/^it should be rainy again$/, function () {
+    return this.browser.find('.outlook', { text: 'Rainy!' }).shouldExist()
+  })
+}
+```
+
 #### Client
 
 ```js
@@ -41,31 +78,4 @@ app.get('/weather/:city', (req, res) => {
 })
 
 module.exports = app
-```
-
-#### Step Definitions
-
-```js
-const hyperdom = require('hyperdom')
-const vinehill = new (require('vinehill'))()
-const browserMonkey = require('browser-monkey')
-const client = require('../../app/client')
-const server = require('../../app/server')
-
-module.exports = function() {
-  this.Before(function() {
-    vinehill.add('http://weather.com', server)
-    vinehill.start()
-    hyperdom.append(document.body, client, {})
-    this.browser = browserMonkey.component('body')
-  })
-
-  this.When(/^I ask about the weather in London$/, function () {
-    return this.browser.find('.london').click()
-  })
-
-  this.Then(/^it should be rainy again$/, function () {
-    return this.browser.find('.outlook', { text: 'Rainy!' }).shouldExist()
-  })
-}
 ```
