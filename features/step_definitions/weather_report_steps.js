@@ -1,34 +1,14 @@
-var express = require('express')
-var hyperdom = require('hyperdom')
-var httpism = require('httpism/browser')
-var vinehill = new (require('vinehill'))()
-var browserMonkey = require('browser-monkey')
-
-function weatherApp(model) {
-  function forecast() {
-    return httpism.get('http://weather.com/weather/london')
-      .then(response => { model.outlook = response.body.outlook })
-  }
-  var h = hyperdom.html
-  return model.outlook ?
-    h('h1.outlook', model.outlook)
-    :
-    h('a.london', { onclick: forecast }, 'Weather In London')
-}
+const hyperdom = require('hyperdom')
+const vinehill = new (require('vinehill'))()
+const browserMonkey = require('browser-monkey')
+const client = require('../../app/client')
+const server = require('../../app/server')
 
 module.exports = function() {
   this.Before(function() {
-    var app = express()
-
-    app.get('/weather/:city', (req, res) => {
-      res.json({ outlook: 'Rainy!' })
-    })
-
-    vinehill.add('http://weather.com', app)
+    vinehill.add('http://weather.com', server)
     vinehill.start()
-
-    hyperdom.append(document.body, weatherApp, {})
-
+    hyperdom.append(document.body, client, {})
     this.browser = browserMonkey.component('body')
   })
 

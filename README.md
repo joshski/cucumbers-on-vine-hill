@@ -1,14 +1,18 @@
-## cucumbers-on-vine-hill
+## Cucumbers on Vine Hill
 
 [Everyone's invited](features/step_definitions/weather_report_steps.js) to my party:
 
-* [cucumber-electron](https://github.com/featurist/cucumber-electron) drives the browser
-* [browser-monkey](https://github.com/featurist/browser-monkey) interacts with the web page
+On the [client](app/client.js) side:
+
 * [hyperdom](https://github.com/featurist/hyperdom) renders the HTML
-* [express](https://github.com/expressjs/express) powers the HTTP API
-* [httpism](https://github.com/featurist/httpism) does the AJAX
-* [vinehill](https://github.com/dereke/vinehill) cuts out the HTTP
+* [httpism](https://github.com/featurist/httpism) talks to the server
 
-## and?
+Over in the [server](app/server.js) crew:
 
-My full stack tests passed while you were still transpiling yours. And when they fail, I'll figure out why while you look all confused.
+* [express](https://github.com/expressjs/express) powers the web API
+
+Driving it all with [executable scenarios](features/step_definitions/weather_report_steps.js):
+
+* [cucumber-electron](https://github.com/featurist/cucumber-electron) is a browser, but also a node
+* [browser-monkey](https://github.com/featurist/browser-monkey) interacts with web pages
+* [vinehill](https://github.com/dereke/vinehill) cuts out the HTTP to keep tests fast and repeatable
