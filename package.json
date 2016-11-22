@@ -1,0 +1,19 @@
+{
+  "name": "fart-stack",
+  "version": "1.0.0",
+  "description": "Demo of cucumber-electron with vinehill",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/cucumber-electron"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-monkey": "^1.29.2",
+    "cucumber-electron": "^1.0.1",
+    "express": "^4.14.0",
+    "httpism": "^2.4.2",
+    "hyperdom": "^0.2.0",
+    "vinehill": "0.0.4"
+  }
+}
