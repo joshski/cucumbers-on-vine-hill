@@ -1,6 +1,6 @@
 ## Cucumbers on Vine Hill
 
-[Everyone's invited](features/step_definitions/weather_report_steps.js) to my party:
+Everyone's invited to my party:
 
 * [cucumber-electron](https://github.com/featurist/cucumber-electron) runs scenarios in a browser that's also a node.js
 * [hyperdom](https://github.com/featurist/hyperdom) renders dynamic HTML
@@ -9,9 +9,9 @@
 * [browser-monkey](https://github.com/featurist/browser-monkey) interacts with web pages and asserts
 * [vinehill](https://github.com/dereke/vinehill) cuts out HTTP to keep tests fast and repeatable
 
-Check out the [client](app/client.js), [server](app/server.js), and [step definitions](features/step_definitions/weather_report_steps.js)
+Here's how they mingle:
 
-#### Features
+#### [Features](features/weather_report.feature)
 
 ```gherkin
 Feature: Weather Report
@@ -21,7 +21,7 @@ Feature: Weather Report
     Then it should be rainy again
 ```
 
-#### Step Definitions
+#### [Step Definitions](features/step_definitions/weather_report_steps.js)
 
 ```js
 const hyperdom = require('hyperdom')
@@ -48,7 +48,7 @@ module.exports = function() {
 }
 ```
 
-#### Client
+#### [Client](app/client.js)
 
 ```js
 const hyperdom = require('hyperdom')
@@ -67,7 +67,7 @@ module.exports = function weatherApp(model) {
 }
 ```
 
-#### Server
+#### [Server](app/server.js)
 
 ```js
 const express = require('express')
