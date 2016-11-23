@@ -1,12 +1,12 @@
 {
-  "name": "fart-stack",
+  "name": "cucumbers-on-vine-hill",
   "version": "1.0.0",
-  "description": "Demo of cucumber-electron with vinehill",
+  "description": "Demo of cucumber-electron full stack testing",
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/cucumber-electron"
   },
-  "author": "",
+  "author": "joshski <joshuachisholm@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "browser-monkey": "^1.29.2",

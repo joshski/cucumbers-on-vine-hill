@@ -54,16 +54,23 @@ module.exports = function() {
 const hyperdom = require('hyperdom')
 const httpism = require('httpism/browser')
 
+const html = hyperdom.html
+const api = httpism.api('http://weather.com/')
+
 module.exports = function weatherApp(model) {
-  function forecast() {
-    return httpism.get('http://weather.com/weather/london')
-      .then(response => { model.outlook = response.body.outlook })
-  }
-  const h = hyperdom.html
-  return model.outlook ?
-    h('h1.outlook', model.outlook)
-    :
-    h('a.london', { onclick: forecast }, 'Weather In London')
+  return model.outlook ? renderOutlook(model) : renderButton(model)
+}
+
+function renderOutlook(model) {
+  return html('h1.outlook', model.outlook)
+}
+
+function renderButton(model) {
+  return html('button.london', {
+    onclick: () => api.get('/weather/london')
+      .then(res => { model.outlook = res.body.outlook })
+    },
+  'Weather In London')
 }
 ```
 
