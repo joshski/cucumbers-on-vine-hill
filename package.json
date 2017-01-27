@@ -1,19 +1,26 @@
 {
   "name": "cucumbers-on-vine-hill",
   "version": "1.0.0",
-  "description": "Demo of cucumber-electron full stack testing",
+  "description": "Demo of cucumber-electron, hyperdom, vinehill, 'full-stack' testing in one process",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/cucumber-electron"
+    "browserify": "browserify ./app/browser.js -o ./app/public/bundle.js -t [ babelify --presets [ es2015 ] ]",
+    "start": "npm run browserify && node start.js",
+    "test": "cucumber-electron"
   },
   "author": "joshski <joshuachisholm@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
+  "dependencies": {
+    "express": "4.14.0",
+    "httpism": "2.7.0",
+    "hyperdom": "0.2.0"
+  },
   "devDependencies": {
-    "browser-monkey": "^1.29.2",
-    "cucumber-electron": "^1.0.1",
-    "express": "^4.14.0",
-    "httpism": "^2.4.2",
-    "hyperdom": "^0.2.0",
-    "vinehill": "0.0.4"
+    "babel-preset-es2015": "^6.22.0",
+    "babelify": "^7.3.0",
+    "browser-monkey": "1.29.2",
+    "browserify": "^14.0.0",
+    "cucumber-electron": "^2.1.1",
+    "vinehill": "0.5.0"
   }
 }

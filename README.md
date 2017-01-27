@@ -24,28 +24,28 @@ Feature: Weather Report
 #### [Step Definitions](features/step_definitions/weather_report_steps.js)
 
 ```js
+const { defineSupportCode } = require('cucumber')
 const hyperdom = require('hyperdom')
-const vinehill = new (require('vinehill'))()
+const VineHill = require('vinehill')
 const browserMonkey = require('browser-monkey')
-const client = require('../../app/client')
+const Client = require('../../app/client')
 const server = require('../../app/server')
 
-module.exports = function() {
-  this.Before(function() {
-    vinehill.add('http://weather.com', server)
-    vinehill.start()
-    hyperdom.append(document.body, client, {})
+defineSupportCode(function ({ Before, When, Then }) {
+  Before(function() {
+    new VineHill().start('http://weather.com', server)
+    hyperdom.append(document.body, new Client('http://weather.com'), {})
     this.browser = browserMonkey.component('body')
   })
 
-  this.When(/^I ask about the weather in London$/, function () {
+  When('I ask about the weather in London', function () {
     return this.browser.find('.london').click()
   })
 
-  this.Then(/^it should be rainy again$/, function () {
+  Then('it should be rainy again', function () {
     return this.browser.find('.outlook', { text: 'Rainy!' }).shouldExist()
   })
-}
+})
 ```
 
 #### [Client](app/client.js)
@@ -53,36 +53,71 @@ module.exports = function() {
 ```js
 const hyperdom = require('hyperdom')
 const httpism = require('httpism/browser')
-
 const html = hyperdom.html
-const api = httpism.api('http://weather.com/')
 
-module.exports = function weatherApp(model) {
-  return model.outlook ? renderOutlook(model) : renderButton(model)
-}
+module.exports = class WeatherAppClient {
+  constructor(serverUrl) {
+    this.api = httpism.api(serverUrl)
+  }
 
-function renderOutlook(model) {
-  return html('h1.outlook', model.outlook)
-}
+  render() {
+    return this.outlook ? this.renderOutlook() : this.renderButton()
+  }
 
-function renderButton(model) {
-  return html('button.london', {
-    onclick: () => api.get('/weather/london')
-      .then(res => { model.outlook = res.body.outlook })
-    },
-  'Weather In London')
+  renderOutlook() {
+    return html('h1.outlook', this.outlook)
+  }
+
+  renderButton(model) {
+    return html('button.london', {
+      onclick: () => this.api.get('/cities/london')
+        .then(res => { this.outlook = res.body.outlook })
+      },
+    'Weather In London')
+  }
 }
 ```
 
 #### [Server](app/server.js)
 
 ```js
+const path = require('path')
 const express = require('express')
 const app = express()
 
-app.get('/weather/:city', (req, res) => {
+app.get('/cities/:city', (req, res) => {
   res.json({ outlook: 'Rainy!' })
 })
 
+app.use(express.static(path.join(__dirname, 'public')))
+
 module.exports = app
 ```
+
+## Testing and developing
+
+Install it:
+
+    npm install
+
+Then you can run cucumber-electron with:
+
+    ./cucumber
+
+Or debug it in a browser window:
+
+    ./cucumber --electron-debug
+
+Hit cmd+r to re-run tests
+
+Hit cmd+option+i for chromium dev tools
+
+## Running the app in a browser
+
+Run the server:
+
+    npm start
+
+And point your browser at:
+
+    http://localhost:3001
