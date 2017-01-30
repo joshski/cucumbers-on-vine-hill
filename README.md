@@ -34,7 +34,7 @@ const server = require('../../app/server')
 defineSupportCode(function ({ Before, When, Then }) {
   Before(function() {
     new VineHill().start('http://weather.com', server)
-    hyperdom.append(document.body, new Client('http://weather.com'), {})
+    hyperdom.append(document.body, new Client('http://weather.com'))
     this.browser = browserMonkey.component('body')
   })
 

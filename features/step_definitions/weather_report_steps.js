@@ -6,9 +6,10 @@ const Client = require('../../app/client')
 const server = require('../../app/server')
 
 defineSupportCode(function ({ Before, When, Then }) {
-  Before(function() {
-    new VineHill().start('http://weather.com', server)
-    hyperdom.append(document.body, new Client('http://weather.com'), {})
+  Before(function () {
+    const weatherUrl = 'http://weather.com'
+    new VineHill().start(weatherUrl, server)
+    hyperdom.append(document.body, new Client(weatherUrl))
     this.browser = browserMonkey.component('body')
   })
 
