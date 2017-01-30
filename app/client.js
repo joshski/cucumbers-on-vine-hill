@@ -16,7 +16,7 @@ module.exports = class WeatherAppClient {
   }
 
   renderButton(model) {
-    return html('button.london', {
+    return html('button', {
       onclick: () => this.api.get('/cities/london')
         .then(res => { this.outlook = res.body.outlook })
       },
