@@ -2,12 +2,12 @@
 
 Everyone's invited to my party:
 
-* [cucumber-electron](https://github.com/featurist/cucumber-electron) runs scenarios in a browser that's also a node.js
+* [cucumber-electron](https://github.com/cucumber/cucumber-electron) runs scenarios in a browser that's also a node.js
 * [hyperdom](https://github.com/featurist/hyperdom) renders dynamic HTML
 * [httpism](https://github.com/featurist/httpism) talks to the server
 * [express](https://github.com/expressjs/express) powers the back end web API
 * [browser-monkey](https://github.com/featurist/browser-monkey) interacts with web pages and asserts
-* [vinehill](https://github.com/dereke/vinehill) cuts out HTTP to keep tests fast and repeatable
+* [vinehill](https://github.com/featurist/vinehill) cuts out HTTP to keep tests fast and repeatable
 
 Here's how they mingle:
 
