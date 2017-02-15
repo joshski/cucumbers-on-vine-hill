@@ -19,7 +19,7 @@ Feature: Weather Forecast
   Scenario: Forecast for a city
     Given I am using the weather app
     When I open the forecast for London
-    Then it should be rainy again
+    Then it should predict rain again
 ```
 
 #### [Step Definitions](features/step_definitions/steps.js)
@@ -45,7 +45,7 @@ cucumber.defineSupportCode(function ({ Given, When, Then }) {
     return this.monkey.click('Forecast for London')
   })
 
-  Then('it should be rainy again', function () {
+  Then('it should predict rain again', function () {
     return this.monkey.find('h1', { text: 'Rainy!' }).shouldExist()
   })
 })

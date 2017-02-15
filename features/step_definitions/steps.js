@@ -18,7 +18,7 @@ cucumber.defineSupportCode(function ({ Given, When, Then }) {
     return this.monkey.click('Forecast for London')
   })
 
-  Then('it should be rainy again', function () {
+  Then('it should predict rain again', function () {
     return this.monkey.find('h1', { text: 'Rainy!' }).shouldExist()
   })
 })

@@ -3,4 +3,4 @@
     Scenario: Forecast for a city
       Given I am using the weather app
       When I open the forecast for London
-      Then it should be rainy again
+      Then it should predict rain again
