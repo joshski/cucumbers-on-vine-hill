@@ -8,18 +8,18 @@ module.exports = class WeatherAppClient {
   }
 
   render() {
-    return this.outlook ? this.renderOutlook() : this.renderButton()
+    return this.forecast ? this.renderForecast() : this.renderMenu()
   }
 
-  renderOutlook() {
-    return html('h1.outlook', this.outlook)
-  }
-
-  renderButton(model) {
+  renderMenu(model) {
     return html('button', {
       onclick: () => this.api.get('/cities/london')
-        .then(res => { this.outlook = res.body.outlook })
+        .then(res => { this.forecast = res.body.forecast })
       },
-    'Weather In London')
+    'Forecast for London')
+  }
+
+  renderForecast() {
+    return html('h1', this.forecast)
   }
 }

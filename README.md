@@ -11,13 +11,14 @@ Everyone's invited to my party:
 
 Here's how they mingle:
 
-#### [Features](features/weather_report.feature)
+#### [Features](features/weather_forecast.feature)
 
 ```gherkin
-Feature: Weather Report
+Feature: Weather Forecast
 
-  Scenario: The weather in my city
-    When I ask about the weather in London
+  Scenario: Forecast for a city
+    Given I am using the weather app
+    When I open the forecast for London
     Then it should be rainy again
 ```
 
@@ -33,15 +34,15 @@ const server = require('../../app/server')
 
 const weatherUrl = 'http://weather.com'
 
-cucumber.defineSupportCode(function ({ Before, When, Then }) {
-  Before(function () {
+cucumber.defineSupportCode(function ({ Given, When, Then }) {
+  Given('I am using the weather app', function () {
     new VineHill().start(weatherUrl, server)
     hyperdom.append(document.body, new Client(weatherUrl))
     this.monkey = browserMonkey.component(document.body)
   })
 
-  When('I ask about the weather in London', function () {
-    return this.monkey.click('Weather In London')
+  When('I open the forecast for London', function () {
+    return this.monkey.click('Forecast for London')
   })
 
   Then('it should be rainy again', function () {
@@ -63,19 +64,19 @@ module.exports = class WeatherAppClient {
   }
 
   render() {
-    return this.outlook ? this.renderOutlook() : this.renderButton()
+    return this.forecast ? this.renderForecast() : this.renderMenu()
   }
 
-  renderOutlook() {
-    return html('h1', this.outlook)
-  }
-
-  renderButton(model) {
+  renderMenu(model) {
     return html('button', {
       onclick: () => this.api.get('/cities/london')
-        .then(res => { this.outlook = res.body.outlook })
+        .then(res => { this.forecast = res.body.forecast })
       },
-    'Weather In London')
+    'Forecast for London')
+  }
+
+  renderForecast() {
+    return html('h1', this.forecast)
   }
 }
 ```
@@ -88,7 +89,7 @@ const express = require('express')
 const app = express()
 
 app.get('/cities/:city', (req, res) => {
-  res.json({ outlook: 'Rainy!' })
+  res.json({ forecast: 'Rainy!' })
 })
 
 app.use(express.static(path.join(__dirname, 'public')))

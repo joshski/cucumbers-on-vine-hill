@@ -3,7 +3,7 @@ const express = require('express')
 const app = express()
 
 app.get('/cities/:city', (req, res) => {
-  res.json({ outlook: 'Rainy!' })
+  res.json({ forecast: 'Rainy!' })
 })
 
 app.use(express.static(path.join(__dirname, 'public')))

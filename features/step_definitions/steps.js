@@ -7,15 +7,15 @@ const server = require('../../app/server')
 
 const weatherUrl = 'http://weather.com'
 
-cucumber.defineSupportCode(function ({ Before, When, Then }) {
-  Before(function () {
+cucumber.defineSupportCode(function ({ Given, When, Then }) {
+  Given('I am using the weather app', function () {
     new VineHill().start(weatherUrl, server)
     hyperdom.append(document.body, new Client(weatherUrl))
     this.monkey = browserMonkey.component(document.body)
   })
 
-  When('I ask about the weather in London', function () {
-    return this.monkey.click('Weather In London')
+  When('I open the forecast for London', function () {
+    return this.monkey.click('Forecast for London')
   })
 
   Then('it should be rainy again', function () {
