@@ -68,11 +68,13 @@ module.exports = class WeatherAppClient {
   }
 
   renderMenu(model) {
-    return html('button', {
-      onclick: () => this.api.get('/cities/london')
-        .then(weather => { this.forecast = weather.forecast })
-      },
-    'Forecast for London')
+    return html('button', { onclick: () => this.fetchForecast('london') },
+      'Forecast for London')
+  }
+
+  fetchForecast(city) {
+    return this.api.get('/cities/' + city)
+      .then(weather => { this.forecast = weather.forecast })
   }
 
   renderForecast() {
