@@ -113,9 +113,7 @@ Or debug it in a browser window:
 
     ./cucumber --electron-debug
 
-Hit cmd+r to re-run tests
-
-Hit cmd+option+i for chromium dev tools
+Hit cmd+r to re-run scenarios
 
 ## Running the app in a browser
 
