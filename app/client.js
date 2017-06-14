@@ -4,7 +4,7 @@ const html = hyperdom.html
 
 module.exports = class WeatherAppClient {
   constructor(serverUrl) {
-    this.api = httpism.api(serverUrl)
+    this.api = httpism.client(serverUrl)
   }
 
   render() {
@@ -14,7 +14,7 @@ module.exports = class WeatherAppClient {
   renderMenu(model) {
     return html('button', {
       onclick: () => this.api.get('/cities/london')
-        .then(res => { this.forecast = res.body.forecast })
+        .then(weather => { this.forecast = weather.forecast })
       },
     'Forecast for London')
   }
